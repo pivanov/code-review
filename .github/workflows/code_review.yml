@@ -1,0 +1,37 @@
+name: Code Review with OpenAI
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - review_requested
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  code_review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Code Review
+        uses: pivanov/code-review@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_MODEL: "gpt-4-mini"
+          exclude: "**/*.json, **/*.md, **/*.lock, **/dist/**, **/node_modules/**, **/.github/**, **/.vscode/**"
+
+      - name: Handle errors
+        if: failure()
+        run: |
+          echo "Code review action failed. Please check the logs for more information."

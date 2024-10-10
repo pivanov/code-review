@@ -1,0 +1,32 @@
+{
+  "name": "@pivanov/code-review",
+  "version": "1.0.0",
+  "description": "Open AI code reviews",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Pavel Ivanov",
+  "license": "MIT",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package": "ncc build --source-map --license licenses.txt",
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
+  },
+  "dependencies": {
+    "@actions/core": "1.11.1",
+    "@actions/github": "^6.0.0",
+    "@octokit/rest": "21.0.2",
+    "minimatch": "9.0.5",
+    "openai": "4.67.3",
+    "parse-diff": "0.11.1",
+    "ts-node": "10.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.7.5",
+    "@vercel/ncc": "0.38.2",
+    "prettier": "3.3.3",
+    "typescript": "5.4.5"
+  }
+}

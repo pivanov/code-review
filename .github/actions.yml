@@ -1,0 +1,45 @@
+name: "Code Reviewer"
+description: "An advanced AI-powered code review action using OpenAI's language models"
+author: "Pavel Ivanov"
+
+branding:
+  icon: 'code'
+  color: 'blue'
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub token for API access"
+    required: true
+
+  OPENAI_API_KEY:
+    description: "OpenAI API Key for authentication"
+    required: true
+
+  OPENAI_API_MODEL:
+    description: "OpenAI model to use for code review (e.g., gpt-4, gpt-3.5-turbo)"
+    required: false
+    default: "gpt-4-1106-preview"
+
+  exclude:
+    description: "Comma-separated list of file patterns to exclude from the review (e.g., '*.md,dist/**')"
+    required: false
+    default: "yarn.lock,dist/**,*.md,*.json"
+
+  max_files:
+    description: "Maximum number of files to review in a single run"
+    required: false
+    default: "20"
+
+  max_tokens:
+    description: "Maximum number of tokens to use in the OpenAI API request"
+    required: false
+    default: "16000"
+
+  review_comment_prefix:
+    description: "Prefix to add to each review comment"
+    required: false
+    default: "AI Code Review:"
